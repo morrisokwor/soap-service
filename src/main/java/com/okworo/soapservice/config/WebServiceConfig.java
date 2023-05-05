@@ -12,7 +12,7 @@ import org.springframework.xml.xsd.XsdSchemaCollection;
 import org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection;
 
 /**
- * @author Morris.Okworo on 02/05/2023
+ * @author Morris.Okworo on 03/05/2023
  */
 @EnableWs
 @Configuration

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Morris.Okworo on 04/05/2023
+ * @author Morris.Okworo on 03/05/2023
  */
 
 public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
