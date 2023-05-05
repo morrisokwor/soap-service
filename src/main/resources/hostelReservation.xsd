@@ -1,0 +1,158 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://interfaces.soapservice.okworo.com"
+           targetNamespace="http://interfaces.soapservice.okworo.com"
+           elementFormDefault="qualified">
+
+
+    <!-- Define the client element -->
+    <xs:element name="client">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="lastName" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="phone" type="xs:string"/>
+                <xs:element name="physicalAddress" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Define the room element -->
+    <xs:element name="room">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="roomNumber" type="xs:string"/>
+                <xs:element name="roomType" type="xs:string"/>
+                <xs:element name="price" type="xs:decimal"/>
+                <xs:element name="capacity" type="xs:int"/>
+                <xs:element name="isBooked" type="xs:int" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="description" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="responseStatus">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClientRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:client"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClientByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClientResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:responseStatus"/>
+                <xs:element ref="tns:client"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:room"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RoomByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="roomId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:responseStatus"/>
+                <xs:element ref="tns:room"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AvailableRoomsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="checkInDate" type="xs:date"/>
+                <xs:element name="checkOutDate" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AvailableRoomsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:room" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Define the bookings element -->
+    <xs:element name="BookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="booking" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="roomId" type="xs:long"/>
+                            <xs:element name="checkinDate" type="xs:date"/>
+                            <xs:element name="checkoutDate" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="BookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:responseStatus"/>
+                <xs:element name="booking" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="tns:room"/>
+                            <xs:element name="checkinDate" type="xs:date"/>
+                            <xs:element name="checkoutDate" type="xs:date"/>
+                            <xs:element name="cost" type="xs:decimal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="totalPrice" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="BookingConfirmationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
