@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: "postgres"
+    container_name: "soap-db"
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=soap
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  soap-service:
+      container_name: soap-service
+      build: ./
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/soap
+      ports:
+        - "8080:8081"
+      depends_on:
+        - db
+volumes:
+  db-data:
